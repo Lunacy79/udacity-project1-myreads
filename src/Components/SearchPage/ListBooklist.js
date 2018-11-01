@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 
-class BooksApp extends Component {
+class ListBooklist extends Component {
   state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -15,15 +15,11 @@ class BooksApp extends Component {
 
   render() {
     return (
-      <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchPage />
-        ) : (
-          <MyReads />
-        )}
-      </div>
+        <div className="search-books-results">
+            <ol className="books-grid"></ol>
+        </div>
     )
   }
 }
-
-export default BooksApp
+        
+export default ListBooklist
