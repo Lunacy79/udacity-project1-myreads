@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 // import * as BooksAPI from './BooksAPI'
-import './App.css'
+import '../../App.css'
+import SearchBar from './SearchBar'
+import ListBooklist from './ListBooklist'
 
 class SearchPage extends Component {
   state = {
