@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchPage from './Components/SearchPage/SearchPage'
 import MyReads from './Components/MyReads/MyReads'
+import {Route} from 'react-router-dom'
 
 class BooksApp extends Component {
   state = {
@@ -18,18 +19,27 @@ class BooksApp extends Component {
 
   componentDidMount() {
     BooksAPI.getAll().then((shelfBooks) => {
-        this.setState({shelfBooks})
+      this.setState({shelfBooks})
     })
   }
+
+  didUpdate = () => {
+    setTimeout(() => {
+    BooksAPI.getAll().then((shelfBooks) => {
+      this.setState({shelfBooks})
+    })}
+  , 500);
+}
 
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+        <Route exact path='/search' render={() => (
           <SearchPage shelfBooks={this.state.shelfBooks} />
-        ) : (
-          <MyReads shelfBooks={this.state.shelfBooks} />
-        )}
+        )} />
+        <Route exact path='/' render={() => (
+          <MyReads shelfBooks={this.state.shelfBooks} didUpdate={this.didUpdate} />
+        )} />
       </div>
     )
   }

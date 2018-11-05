@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-// import * as BooksAPI from './BooksAPI'
 import '../../App.css'
 import Book from '../Book'
 
@@ -26,18 +25,16 @@ class ListBooklist extends Component {
     }
   }
 
- 
-
   createTable = (books) => {
     let table = [];
     for (const book of books){
-      table.push(<li key={book.id}><Book book={book}  shelfBooks={this.props.shelfBooks} /></li>)
+      table.push(<li key={book.id}><Book book={book} fromSearch={true} shelfBooks={this.props.shelfBooks} /></li>)
     }
     return table
   }
 
+
   render() {
-    
     return (
         <div className="search-books-results">
             <ol className="books-grid">
