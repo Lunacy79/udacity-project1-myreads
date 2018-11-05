@@ -34,7 +34,7 @@ class SearchPage extends Component {
         return (
             <div className="search-books">
                 <SearchBar onSearch={this.setQuery} />
-                <ListBooklist books={this.state.books} />
+                <ListBooklist books={this.state.books} shelfBooks={this.props.shelfBooks} />
             </div>
         )
     }

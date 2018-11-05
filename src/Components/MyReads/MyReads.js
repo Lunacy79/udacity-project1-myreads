@@ -14,6 +14,8 @@ class MyReads extends Component {
     showSearchPage: false
   }
 
+  
+
   render() {
     return (
         <div className="list-books">
@@ -22,7 +24,9 @@ class MyReads extends Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf />
+                <BookShelf shelfBooks={this.props.shelfBooks} shelf='currentlyReading' />
+                <BookShelf shelfBooks={this.props.shelfBooks} shelf='wantToRead' />
+                <BookShelf shelfBooks={this.props.shelfBooks} shelf='read' />
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
                   <div className="bookshelf-books">
