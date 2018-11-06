@@ -4,18 +4,9 @@ import BookShelf from './BookShelf'
 import {Link} from 'react-router-dom'
 
 class MyReads extends Component {
-  state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
-  }
 
-  didUpdate = () => {
-    this.props.didUpdate()
+  bookMoved = () => {
+    this.props.bookMoved()
   }
 
 
@@ -27,9 +18,9 @@ class MyReads extends Component {
             </div>
             <div className="list-books-content">
               <div>
-                <BookShelf shelfBooks={this.props.shelfBooks} shelf='currentlyReading' didUpdate={this.didUpdate} />
-                <BookShelf shelfBooks={this.props.shelfBooks} shelf='wantToRead' didUpdate={this.didUpdate} />
-                <BookShelf shelfBooks={this.props.shelfBooks} shelf='read' didUpdate={this.didUpdate} />
+                <BookShelf shelfBooks={this.props.shelfBooks} shelf='currentlyReading' bookMoved={this.bookMoved} />
+                <BookShelf shelfBooks={this.props.shelfBooks} shelf='wantToRead' bookMoved={this.bookMoved} />
+                <BookShelf shelfBooks={this.props.shelfBooks} shelf='read' bookMoved={this.bookMoved} />
               </div>
             </div>
             <div className="open-search">

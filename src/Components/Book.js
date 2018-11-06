@@ -5,13 +5,6 @@ import '../App.css'
 
 class Book extends Component {
     state = {
-        /**
-         * TODO: Instead of using this state variable to keep track of which page
-         * we're on, use the URL in the browser's address bar. This will ensure that
-         * users can use the browser's back and forward buttons to navigate between
-         * pages, as well as provide a good URL they can bookmark and share.
-         */
-        showSearchPage: false,
         shelf: ''
     }
     componentDidMount() {
@@ -31,17 +24,32 @@ class Book extends Component {
     setShelf = event => {
         this.setState({shelf: event.target.value})
         BooksAPI.update(this.props.book, event.target.value)
-        if(!this.props.fromSearch){
-            this.props.didUpdate()
-        }
+        this.props.bookMoved()
     }
 
+    getAuthors = () => {
+        let authors = ''
+        if (this.props.book.authors) {
+            authors = this.props.book.authors
+        }
+        return authors
+    }
+
+    getImage = () => {
+        let image = ''
+        if (this.props.book.hasOwnProperty('imageLinks')) {
+            image = this.props.book.imageLinks.thumbnail
+        }
+        return image
+    }
 
     render() {
+
+    console.log(this.props.book)
         return (
             <div className="book">
                 <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url("${this.props.book.imageLinks.thumbnail}")` }}></div>
+                <div className="book-cover" style={{width: 128, height: 188, backgroundImage: `url(${this.getImage()})`}}></div>
                 <div className="book-shelf-changer">
                     <select onChange={this.setShelf} value={this.state.shelf}>
                     <option value="move" disabled>Move to...</option>
@@ -53,7 +61,7 @@ class Book extends Component {
                 </div>
                 </div>
                 <div className="book-title">{this.props.book.title}</div>
-                <div className="book-authors">{this.props.book.authors}</div>
+                <div className="book-authors">{this.getAuthors()}</div>
             </div> 
         )
     }

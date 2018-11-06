@@ -3,14 +3,9 @@ import '../../App.css'
 import Book from '../Book'
 
 class ListBooklist extends Component {
-  state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
+
+  bookMoved = () => {
+    this.props.bookMoved()
   }
 
   setShelf = () => {
@@ -27,8 +22,10 @@ class ListBooklist extends Component {
 
   createTable = (books) => {
     let table = [];
-    for (const book of books){
-      table.push(<li key={book.id}><Book book={book} fromSearch={true} shelfBooks={this.props.shelfBooks} /></li>)
+    if(typeof(books) !== 'undefined'){
+      for (const book of books){
+        table.push(<li key={book.id}><Book book={book} shelfBooks={this.props.shelfBooks} bookMoved={this.bookMoved} /></li>)
+      }
     }
     return table
   }
