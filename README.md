@@ -9,3 +9,4 @@ This is a web application that allows you to select and categorize books you hav
 * start the development server with `npm start`
 
 
+For this project, I used the starter repository from Udacity.
