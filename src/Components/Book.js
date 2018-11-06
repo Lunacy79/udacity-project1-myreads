@@ -1,40 +1,70 @@
 import React, {Component} from 'react'
-// import * as BooksAPI from './BooksAPI'
-import './App.css'
+import * as BooksAPI from '../BooksAPI'
+import '../App.css'
+
 
 class Book extends Component {
-  state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-    showSearchPage: false
-  }
+    state = {
+        shelf: ''
+    }
+    componentDidMount() {
+        this.setInitialShelf()
+    }
 
-  render() {
-    return (
-        <li>
+    setInitialShelf = () => {
+        const isBook = this.props.shelfBooks.filter(shelfBook => shelfBook.previewLink === this.props.book.previewLink);
+        if(isBook.length === 1){
+            this.setState({shelf: isBook[0].shelf})
+        }
+        else {
+            this.setState({shelf: "none"})
+        }
+    }
+
+    setShelf = event => {
+        this.setState({shelf: event.target.value})
+        BooksAPI.update(this.props.book, event.target.value)
+        this.props.bookMoved()
+    }
+
+    getAuthors = () => {
+        let authors = ''
+        if (this.props.book.authors) {
+            authors = this.props.book.authors
+        }
+        return authors
+    }
+
+    getImage = () => {
+        let image = ''
+        if (this.props.book.hasOwnProperty('imageLinks')) {
+            image = this.props.book.imageLinks.thumbnail
+        }
+        return image
+    }
+
+    render() {
+
+    console.log(this.props.book)
+        return (
             <div className="book">
                 <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("http://books.google.com/books/content?id=PGR2AwAAQBAJ&printsec=frontcover&img=1&zoom=1&imgtk=AFLRE73-GnPVEyb7MOCxDzOYF1PTQRuf6nCss9LMNOSWBpxBrz8Pm2_mFtWMMg_Y1dx92HT7cUoQBeSWjs3oEztBVhUeDFQX6-tWlWz1-feexS0mlJPjotcwFqAg6hBYDXuK_bkyHD-y&source=gbs_api")' }}></div>
+                <div className="book-cover" style={{width: 128, height: 188, backgroundImage: `url(${this.getImage()})`}}></div>
                 <div className="book-shelf-changer">
-                    <select>
+                    <select onChange={this.setShelf} value={this.state.shelf}>
                     <option value="move" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading</option>
+                    <option value="currentlyReading" >Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
                     <option value="read">Read</option>
                     <option value="none">None</option>
                     </select>
                 </div>
                 </div>
-                <div className="book-title">To Kill a Mockingbird</div>
-                <div className="book-authors">Harper Lee</div>
-            </div>
-        </li>
-    )
-  }
+                <div className="book-title">{this.props.book.title}</div>
+                <div className="book-authors">{this.getAuthors()}</div>
+            </div> 
+        )
+    }
 }
       
 export default Book
