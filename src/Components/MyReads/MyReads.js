@@ -5,8 +5,8 @@ import {Link} from 'react-router-dom'
 
 class MyReads extends Component {
 
-  bookMoved = () => {
-    this.props.bookMoved()
+  bookMoved = (book, shelf) => {
+    this.props.bookMoved(book, shelf)
   }
 
 

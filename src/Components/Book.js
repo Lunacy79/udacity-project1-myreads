@@ -24,7 +24,7 @@ class Book extends Component {
     setShelf = event => {
         this.setState({shelf: event.target.value})
         BooksAPI.update(this.props.book, event.target.value)
-        this.props.bookMoved()
+        this.props.bookMoved(this.props.book, event.target.value)
     }
 
     getAuthors = () => {

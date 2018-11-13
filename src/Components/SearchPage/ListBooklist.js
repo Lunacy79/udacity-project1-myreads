@@ -4,8 +4,8 @@ import Book from '../Book'
 
 class ListBooklist extends Component {
 
-  bookMoved = () => {
-    this.props.bookMoved()
+  bookMoved = (book, shelf) => {
+    this.props.bookMoved(book, shelf)
   }
 
   setShelf = () => {

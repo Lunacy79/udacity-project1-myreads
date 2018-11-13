@@ -16,15 +16,30 @@ class BooksApp extends Component {
     })
   }
 
-  bookMoved = () => {
-    setTimeout(() => {
-    BooksAPI.getAll().then((shelfBooks) => {
-      this.setState({shelfBooks})
-    })}
-  , 500);
-}
+  bookMoved = (book, shelf) => {
+    book.shelf = shelf
+    let shelfBooks = this.state.shelfBooks
+    console.log(book)
+    
+      let position = -1
+      for(let i = 0; i < shelfBooks.length; i++){
+        if(shelfBooks[i].previewLink === book.previewLink){
+          position = i;
+        }
+      }
+      if (position > -1){
+        shelfBooks.slice(position, 1, book)
+        this.setState({shelfBooks: shelfBooks})
+        console.log('moved')
+      }
+      else{
+        shelfBooks.push(book)
+        this.setState({shelfBooks: shelfBooks})
+      }
+    }
 
   render() {
+    console.log(this.state.shelfBooks)
     return (
       <div className="app">
         <Route exact path='/search' render={() => (

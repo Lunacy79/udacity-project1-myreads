@@ -4,8 +4,8 @@ import Book from '../Book'
 
 class BookShelf extends Component {
 
-    bookMoved = () => {
-        this.props.bookMoved()
+    bookMoved = (book, shelf) => {
+        this.props.bookMoved(book, shelf)
     }
 
     renderBooks = () => {
